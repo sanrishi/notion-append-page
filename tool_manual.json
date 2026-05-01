@@ -1,0 +1,96 @@
+{
+  "tool_name": "notion_append_page",
+  "job_to_be_done": "Append a paragraph block to an existing Notion page so the owner can store notes, summaries, or action items in Notion.",
+  "summary_for_model": "Appends one paragraph block to a Notion page using the Notion API. Requires `page_id` and `content`. Uses `NOTION_API_KEY` from the environment. Dry-run validates only and does not call Notion.",
+  "jurisdiction": "US",
+  "approval_summary_template": "Append a paragraph to a Notion page after approval.",
+  "side_effect_summary": "Appends one paragraph block to a Notion page via the Notion API.",
+  "idempotency_support": true,
+  "preview_schema": {
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "summary": {
+        "type": "string",
+        "description": "Preview of the action that would be executed after approval."
+      },
+      "page_id": {
+        "type": "string",
+        "description": "Target Notion page/block id."
+      },
+      "content_preview": {
+        "type": "string",
+        "description": "First characters of the paragraph that would be appended."
+      }
+    },
+    "required": ["summary"]
+  },
+  "trigger_conditions": [
+    "The owner wants to add a short note, summary, or log line to a Notion page.",
+    "The agent has text content and the owner provides a Notion page_id to append to.",
+    "The agent is writing results back to a Notion workspace for record-keeping.",
+    "The owner asks to append a paragraph to a specific Notion page."
+  ],
+  "do_not_use_when": [
+    "The owner has not granted Notion access via an integration token.",
+    "The owner needs rich layout (tables, toggles, headings) beyond a single paragraph block.",
+    "The content contains secrets (API keys, passwords) that should not be stored in Notion."
+  ],
+  "permission_class": "action",
+  "dry_run_supported": true,
+  "requires_connected_accounts": [],
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "page_id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Notion page/block id to append children to (32 hex chars, with or without dashes)."
+      },
+      "content": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "Paragraph text to append."
+      }
+    },
+    "required": ["page_id", "content"]
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "summary": { "type": "string", "description": "One-line summary of what was appended (or would be appended in dry_run)." },
+      "page_id": { "type": "string", "description": "Target Notion page/block id." },
+      "appended_block_ids": {
+        "type": "array",
+        "description": "IDs of newly appended blocks when available.",
+        "items": { "type": "string" }
+      },
+      "notion_response_type": { "type": "string", "description": "Notion API response object type (or 'dry_run')." },
+      "source": { "type": "string", "description": "Upstream provider label (Notion API)." },
+      "source_url": { "type": "string", "description": "Notion endpoint pattern for citation." },
+      "fetched_at": { "type": "string", "description": "ISO timestamp when the action was executed (or validated in dry_run)." },
+      "cache_ttl_seconds": { "type": "integer", "description": "Cache TTL in seconds (0 for this action adapter)." }
+    },
+    "required": ["summary", "page_id", "source", "source_url", "fetched_at", "cache_ttl_seconds"]
+  },
+  "usage_hints": [
+    "The owner must create a Notion integration and share the target page with that integration.",
+    "Set `NOTION_API_KEY` in the runtime environment (do not include it in prompts or files).",
+    "Use the page_id from the Notion URL or API; accept both dashed and undashed forms.",
+    "Keep content short; if you have multiple paragraphs, call the tool multiple times."
+  ],
+  "result_hints": [
+    "Confirm the append succeeded and echo the target page_id back to the owner.",
+    "If appended_block_ids are returned, include them for traceability.",
+    "If the Notion API returns warnings, mention them in the summary."
+  ],
+  "error_hints": [
+    "If `NOTION_API_KEY` is missing, return a clear configuration error and explain how to set it.",
+    "If page_id is malformed, ask the owner to provide a valid Notion page/block id.",
+    "If Notion returns 429, tell the owner to retry after the suggested cooldown.",
+    "If Notion returns 401/403, indicate the token may be invalid or lacks access to the page."
+  ]
+}

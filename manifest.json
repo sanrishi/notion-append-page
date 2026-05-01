@@ -1,0 +1,31 @@
+{
+  "capability_key": "notion-append-page",
+  "version": "0.1.0",
+  "name": "Notion Append Page",
+  "job_to_be_done": "Append a paragraph block to an existing Notion page so an agent can add notes or results into a workspace page.",
+  "category": "document",
+  "permission_class": "action",
+  "approval_mode": "always-ask",
+  "dry_run_supported": true,
+  "required_connected_accounts": [],
+  "permission_scopes": [],
+  "price_model": "subscription",
+  "price_value_minor": 500,
+  "currency": "USD",
+  "jurisdiction": "US",
+  "applicable_regulations": [],
+  "data_residency": "US",
+  "short_description": "Append a paragraph block to a Notion page.",
+  "description": "Calls Notion API `PATCH /v1/blocks/{block_id}/children` to append a single paragraph block. Requires `NOTION_API_KEY` (integration token) via environment variable.",
+  "docs_url": "",
+  "support_contact": "",
+  "seller_homepage_url": "",
+  "seller_social_url": "",
+  "compatibility_tags": ["notion", "append", "page", "block", "action"],
+  "latency_tier": "normal",
+  "example_prompts": [
+    "Append a summary paragraph to my Notion page.",
+    "Add this note to the project page in Notion."
+  ]
+}
+

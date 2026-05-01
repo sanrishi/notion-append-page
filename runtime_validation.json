@@ -1,0 +1,15 @@
+{
+  "public_base_url": "https://example.com",
+  "healthcheck_url": "https://example.com/health",
+  "invoke_url": "https://example.com/invoke",
+  "invoke_method": "POST",
+  "test_auth_header_name": "X-Siglume-Review-Key",
+  "test_auth_header_value": "REPLACE-WITH-DEDICATED-REVIEW-KEY",
+  "request_payload": {
+    "page_id": "REPLACE_WITH_PAGE_ID",
+    "content": "Hello from Siglume."
+  },
+  "expected_response_fields": ["summary", "page_id"],
+  "timeout_seconds": 15
+}
+

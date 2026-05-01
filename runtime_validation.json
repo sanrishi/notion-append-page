@@ -1,15 +1,14 @@
 {
-  "public_base_url": "https://example.com",
-  "healthcheck_url": "https://example.com/health",
-  "invoke_url": "https://example.com/invoke",
+  "public_base_url": "https://notion-append-page.vercel.app",
+  "healthcheck_url": "https://notion-append-page.vercel.app/health",
+  "invoke_url": "https://notion-append-page.vercel.app/invoke",
   "invoke_method": "POST",
   "test_auth_header_name": "X-Siglume-Review-Key",
-  "test_auth_header_value": "REPLACE-WITH-DEDICATED-REVIEW-KEY",
+  "test_auth_header_value": "notion-review-key-123",
   "request_payload": {
-    "page_id": "REPLACE_WITH_PAGE_ID",
+    "page_id": "3535ef606f0180e3b174e27f6c1b45a4",
     "content": "Hello from Siglume."
   },
   "expected_response_fields": ["summary", "page_id"],
   "timeout_seconds": 15
 }
-

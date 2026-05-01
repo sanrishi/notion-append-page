@@ -17,8 +17,8 @@
   "data_residency": "US",
   "short_description": "Append a paragraph block to a Notion page.",
   "description": "Calls Notion API `PATCH /v1/blocks/{block_id}/children` to append a single paragraph block. Requires `NOTION_API_KEY` (integration token) via environment variable.",
-  "docs_url": "",
-  "support_contact": "",
+  "docs_url": "https://github.com/sanrishi/notion-append-page",
+  "support_contact": "https://github.com/sanrishi/notion-append-page/issues",
   "seller_homepage_url": "",
   "seller_social_url": "",
   "compatibility_tags": ["notion", "append", "page", "block", "action"],
@@ -28,4 +28,3 @@
     "Add this note to the project page in Notion."
   ]
 }
-

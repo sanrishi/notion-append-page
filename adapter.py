@@ -249,8 +249,8 @@ class NotionAppendPageApp(AppAdapter):
                 "Calls Notion API PATCH /v1/blocks/{block_id}/children to append "
                 "a single paragraph block containing `content`."
             ),
-            docs_url="",
-            support_contact="",
+            docs_url="https://github.com/sanrishi/notion-append-page",
+            support_contact="https://github.com/sanrishi/notion-append-page/issues",
             compatibility_tags=["notion", "append", "page", "block", "action"],
             example_prompts=[
                 "Append this note to my Notion page.",
